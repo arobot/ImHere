@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="satellite"
+            type="me.wluo.imhere.pojo.SatelliteInfo" />
+
+        <variable
+            name="compassInfo"
+            type="me.wluo.imhere.pojo.CompassInfo" />
+
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="me.wluo.imhere.MainActivity">
+
+        <ImageView
+            android:id="@+id/iv_compass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/compass" />
+
+        <me.wluo.imhere.widget.MainTextView
+            android:id="@+id/tv_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/iv_compass"
+            android:layout_alignTop="@id/iv_compass"
+            android:text="@{compassInfo.direction}"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="20sp" />
+
+        <me.wluo.imhere.widget.LedTextView
+            android:id="@+id/tv_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/iv_compass"
+            android:layout_alignTop="@id/iv_compass"
+            android:shadowColor="@color/textColorShadow"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="10"
+            android:text="@{compassInfo.degree}"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="20sp" />
+
+        <me.wluo.imhere.widget.LedTextView
+            android:id="@+id/tv_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_compass"
+            android:layout_centerHorizontal="true"
+            android:shadowColor="@color/textColorShadow"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="10"
+            android:text="@{satellite.speed}"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/rl_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_speed"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/box"
+            android:padding="4dp">
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{satellite.longitude}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp" />
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/latitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/longitude"
+                android:text="@{satellite.latitude}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp" />
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/tv_altitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/longitude"
+                android:layout_below="@+id/longitude"
+                android:text="@{satellite.altitude}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp" />
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/tv_accuracy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/latitude"
+                android:layout_below="@+id/latitude"
+                android:text="@{satellite.accuracy}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_lbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/rl_location"
+            android:layout_below="@+id/rl_location"
+            android:layout_marginTop="8dp"
+            android:layout_toStartOf="@+id/rl_city_code"
+            android:background="@drawable/box"
+            android:padding="4dp">
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/province"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{satellite.province}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp" />
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/province"
+                android:text="@{satellite.city}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp" />
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/district"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/city"
+                android:text="@{satellite.district}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp" />
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/tv_street"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/province"
+                android:text="@{satellite.street}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp" />
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/tv_street_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_street"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/tv_street"
+                android:text="@{satellite.streetNum}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp" />
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/tv_poi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_street"
+                android:text="@{satellite.poiName}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp"
+                android:visibility="@{satellite.poiName!=null ? View.VISIBLE : View.GONE}" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/rl_city_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/rl_lbs"
+            android:layout_alignEnd="@+id/rl_location"
+            android:layout_alignTop="@+id/rl_lbs"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/box"
+            android:orientation="vertical">
+
+            <me.wluo.imhere.widget.LedTextView
+                android:id="@+id/tv_city_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:shadowColor="@color/textColorShadow"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="10"
+                android:text="@{satellite.cityCode}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <me.wluo.imhere.widget.LedTextView
+                android:id="@+id/tv_ad_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:shadowColor="@color/textColorShadow"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="10"
+                android:text="@{satellite.adCode}"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>
