@@ -2,7 +2,6 @@ package me.wluo.imhere;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
-import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -13,15 +12,19 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
+import com.idescout.sql.SqlScoutServer;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import me.wluo.imhere.databinding.ActivityMainBinding;
+import me.wluo.imhere.db.DatabaseHelper;
 import me.wluo.imhere.pojo.CompassInfo;
 import me.wluo.imhere.pojo.SatelliteInfo;
 
@@ -48,7 +51,7 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
     public AMapLocationClient mLocationClient = null;
     public AMapLocationClientOption mLocationOption = null;
     //function
-
+    private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,6 +191,8 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
                 satelliteInfo.setAltitude(String.format("海拔 %s m", accuracyFormatter((float) aMapLocation.getAltitude())));
                 String speed = String.format("%05.1f", accuracyFormatter(aMapLocation.getSpeed()));
                 satelliteInfo.setSpeed(String.format("V %s m/s", speed));
+                Date date = new Date(aMapLocation.getTime());
+                satelliteInfo.setAddTime(df.format(date));
             } else {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError", "location Error, ErrCode:"
@@ -195,6 +200,18 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
                         + aMapLocation.getErrorInfo());
             }
         }
+    }
+
+    /**
+     * OnClick method
+     * 添加记录按钮监听器
+     *
+     * @param view
+     */
+    public void insertRecord(View view) {
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        dbHelper.insertRecord(satelliteInfo);
+        System.out.println("db items count:" + dbHelper.readAllRecords().size());
     }
 
     @Override

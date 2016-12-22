@@ -12,6 +12,7 @@ import com.android.databinding.library.baseAdapters.BR;
  */
 
 public class SatelliteInfo extends BaseObservable {
+    private int id;
 
     public String satelliteCount;
     /**
@@ -44,6 +45,18 @@ public class SatelliteInfo extends BaseObservable {
     public String altitude;
 
     public String speed;
+
+    public String addTime;
+
+    @Bindable
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+        notifyPropertyChanged(BR.id);
+    }
 
     @Bindable
     public String getSatelliteCount() {
@@ -195,5 +208,15 @@ public class SatelliteInfo extends BaseObservable {
     public void setSpeed(String speed) {
         this.speed = speed;
         notifyPropertyChanged(BR.speed);
+    }
+
+    @Bindable
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
+        notifyPropertyChanged(BR.addTime);
     }
 }

@@ -238,5 +238,12 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+        <Button
+            android:id="@+id/btn_add_record"
+            android:layout_below="@+id/rl_lbs"
+            android:text="新增记录"
+            android:onClick="insertRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </layout>
