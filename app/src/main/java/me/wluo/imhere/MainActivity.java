@@ -1,6 +1,7 @@
 package me.wluo.imhere;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -18,7 +19,6 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
-import com.idescout.sql.SqlScoutServer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,6 +27,9 @@ import me.wluo.imhere.databinding.ActivityMainBinding;
 import me.wluo.imhere.db.DatabaseHelper;
 import me.wluo.imhere.pojo.CompassInfo;
 import me.wluo.imhere.pojo.SatelliteInfo;
+import me.wluo.imhere.widget.InkDialog;
+import me.wluo.imhere.widget.MainEditText;
+import me.wluo.imhere.widget.MainTextView;
 
 public class MainActivity extends Activity implements SensorEventListener, AMapLocationListener {
     //sensor
@@ -46,6 +49,8 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
     public RotateAnimation rotateAnimation;
     //view
     private ImageView ivCompass;
+    private InkDialog inkDialog;
+    private InkDialog.Builder builder;
 
     //Amap location object
     public AMapLocationClient mLocationClient = null;
@@ -81,6 +86,46 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
         super.onPause();
         mSensorManager.unregisterListener(this);
         mLocationClient.stopLocation();
+    }
+
+    private void prepareDialog(final SatelliteInfo satelliteInfo) {
+        builder = new InkDialog.Builder(this);
+        View contentView = View.inflate(this, R.layout.dialog_content, null);
+        MainTextView longitude = (MainTextView) contentView.findViewById(R.id.content_longitude);
+        MainTextView latitude = (MainTextView) contentView.findViewById(R.id.content_latitude);
+        final MainEditText location = (MainEditText) contentView.findViewById(R.id.content_location);
+        MainTextView editor = (MainTextView) contentView.findViewById(R.id.content_change_location);
+        longitude.setText(satelliteInfo.getLongitude());
+        latitude.setText(satelliteInfo.getLatitude());
+        location.setText(satelliteInfo.getPoiName());
+        final boolean[] isEditMode = {false};
+        editor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isEditMode[0]) {
+                    location.setEnabled(false);
+                    location.setFocusableInTouchMode(false);
+                } else {
+                    location.setEnabled(true);
+                    location.setFocusableInTouchMode(true);
+                }
+                isEditMode[0] = !isEditMode[0];
+            }
+        });
+        builder.setTitle(satelliteInfo.getCity() + " " + satelliteInfo.getDistrict()).setMessage("正在添加记录").setContentView(contentView).setPositiveButton("添加", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                satelliteInfo.setPoiName(location.getText().toString());
+                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+                dbHelper.insertRecord(satelliteInfo);
+                dialog.dismiss();
+            }
+        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
     }
 
     public void doAmap() {
@@ -163,8 +208,8 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
         else
             name = location > 0 ? "北纬" : "南纬";
         location = Math.abs(location);
-        int du = (int) location / 1;
-        int fen = (int) (location % 1 * 60) / 1;
+        int du = (int) location;
+        int fen = (int) (location % 1 * 60);
         int miao = (int) (location % 1 * 60 % 1 * 60 / 1);
         return String.format("%s %d°%d'%d\"", name, du, fen, miao);
     }
@@ -209,9 +254,9 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
      * @param view
      */
     public void insertRecord(View view) {
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.insertRecord(satelliteInfo);
-        System.out.println("db items count:" + dbHelper.readAllRecords().size());
+        prepareDialog(satelliteInfo);
+        inkDialog = builder.create();
+        inkDialog.show();
     }
 
     @Override

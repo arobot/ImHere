@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_dialog_padding">
+
+    <LinearLayout
+        android:id="@+id/dialog_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/box"
+        android:orientation="vertical">
+
+        <me.wluo.imhere.widget.MainTextView
+            android:id="@+id/dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="start|center_vertical"
+            android:paddingStart="12dp"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="18sp" />
+
+
+        <LinearLayout
+            android:id="@+id/dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/dialog_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center"
+                android:lineSpacingMultiplier="1.5"
+                android:minHeight="120dp"
+                android:paddingBottom="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="15dp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/dialog_content_btn_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
+            android:background="@color/colorPrimaryDark" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/dialog_negative_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_btn_click_selector"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@drawable/text_click_color" />
+
+            <View
+                android:id="@+id/dialog_btn_divider"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1.5dp"
+                android:background="@color/colorPrimaryDark"
+                android:visibility="gone" />
+
+            <me.wluo.imhere.widget.MainTextView
+                android:id="@+id/dialog_positive_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_btn_click_selector"
+                android:gravity="center"
+                android:text="@string/ok"
+                android:textColor="@drawable/text_click_color" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

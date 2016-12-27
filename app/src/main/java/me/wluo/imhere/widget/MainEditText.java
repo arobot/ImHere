@@ -4,26 +4,26 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.widget.EditText;
 
 /**
- * Created by niwei on 2016/12/21.
+ * Created by niwei on 2016/12/27.
  */
 
-public class MainTextView extends TextView {
+public class MainEditText extends EditText {
     private static final String SIYUAN = "fonts/8pinmatrix.TTF";
 
-    public MainTextView(Context context) {
+    public MainEditText(Context context) {
         super(context);
         init(context);
     }
 
-    public MainTextView(Context context, AttributeSet attrs) {
+    public MainEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public MainTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MainEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }

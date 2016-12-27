@@ -241,9 +241,37 @@
         <Button
             android:id="@+id/btn_add_record"
             android:layout_below="@+id/rl_lbs"
-            android:text="新增记录"
+            android:text="@string/save_location"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/common_btn_selector"
+            android:textColor="@drawable/text_click_color"
             android:onClick="insertRecord"
             android:layout_width="wrap_content"
+            android:visibility="visible"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_list_record"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/rl_lbs"
+            android:text="@string/record_history"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/common_btn_selector"
+            android:textColor="@drawable/text_click_color"
+            android:onClick="insertRecord"
+            android:layout_width="wrap_content"
+            android:visibility="visible"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_about"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/rl_lbs"
+            android:text="@string/about"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/common_btn_selector"
+            android:textColor="@drawable/text_click_color"
+            android:onClick="insertRecord"
+            android:layout_width="wrap_content"
+            android:visibility="visible"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 </layout>
