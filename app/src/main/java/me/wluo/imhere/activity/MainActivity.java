@@ -1,7 +1,8 @@
-package me.wluo.imhere;
+package me.wluo.imhere.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -23,8 +24,11 @@ import com.amap.api.location.AMapLocationListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import me.wluo.imhere.App;
+import me.wluo.imhere.R;
 import me.wluo.imhere.databinding.ActivityMainBinding;
-import me.wluo.imhere.db.DatabaseHelper;
+import me.wluo.imhere.db.DaoSession;
+import me.wluo.imhere.db.SatelliteInfoDao;
 import me.wluo.imhere.pojo.CompassInfo;
 import me.wluo.imhere.pojo.SatelliteInfo;
 import me.wluo.imhere.widget.InkDialog;
@@ -57,6 +61,8 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
     public AMapLocationClientOption mLocationOption = null;
     //function
     private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    //dao
+    SatelliteInfoDao satelliteInfoDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +77,9 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
         //view
         ivCompass = (ImageView) findViewById(R.id.iv_compass);
         doAmap();
+        //get dao
+        DaoSession daoSession = ((App) getApplication()).getDaoSession();
+        satelliteInfoDao = daoSession.getSatelliteInfoDao();
     }
 
     @Override
@@ -115,9 +124,11 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
         builder.setTitle(satelliteInfo.getCity() + " " + satelliteInfo.getDistrict()).setMessage("正在添加记录").setContentView(contentView).setPositiveButton("添加", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                satelliteInfo.setPoiName(location.getText().toString());
-                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-                dbHelper.insertRecord(satelliteInfo);
+                if (location.getText().toString().equals(""))
+                    satelliteInfo.setPoiName(location.getText().toString());
+//                DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+//                dbHelper.insertRecord(satelliteInfo);
+                satelliteInfoDao.insert(satelliteInfo);
                 dialog.dismiss();
             }
         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -257,6 +268,14 @@ public class MainActivity extends Activity implements SensorEventListener, AMapL
         prepareDialog(satelliteInfo);
         inkDialog = builder.create();
         inkDialog.show();
+    }
+
+    public void startRecordsActivity(View view) {
+        this.startActivity(new Intent(this, RecordListActivity.class));
+    }
+
+    public void startAboutActivity(View view) {
+        this.startActivity(new Intent(this, AboutActivity.class));
     }
 
     @Override

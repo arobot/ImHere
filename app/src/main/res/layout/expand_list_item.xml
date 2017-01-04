@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingEnd="12dp"
+    android:paddingStart="12sp"
+    android:paddingTop="8dp">
+
+    <me.wluo.imhere.widget.LedTextView
+        android:id="@+id/expand_item_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:shadowColor="@color/textColorShadow"
+        android:shadowDx="1"
+        android:shadowDy="0"
+        android:shadowRadius="10"
+        android:text="028"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="24sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/expand_item_code"
+        android:layout_toStartOf="@+id/expand_item_timestamp">
+
+        <me.wluo.imhere.widget.MainTextView
+            android:id="@+id/expand_item_province"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="四川省" />
+
+        <me.wluo.imhere.widget.MainTextView
+            android:id="@+id/expand_item_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/expand_item_province"
+            android:text="成都市" />
+
+        <me.wluo.imhere.widget.MainTextView
+            android:id="@+id/expand_item_district"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/expand_item_city"
+            android:text="高新区" />
+
+        <me.wluo.imhere.widget.MainTextView
+            android:id="@+id/expand_item_street"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expand_item_province"
+            android:text="天府大道中段辅路" />
+
+        <me.wluo.imhere.widget.MainTextView
+            android:id="@+id/expand_item_street_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/expand_item_province"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@+id/expand_item_street"
+            android:text="666号" />
+
+        <me.wluo.imhere.widget.MainTextView
+            android:id="@+id/expand_item_poi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/expand_item_street"
+            android:text="希顿国际广场C座30楼" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/expand_item_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true">
+
+        <me.wluo.imhere.widget.LedTextView
+            android:id="@+id/expand_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:shadowColor="@color/textColorShadow"
+            android:shadowDx="1"
+            android:shadowDy="0"
+            android:shadowRadius="10"
+            android:text="18:23" />
+
+        <me.wluo.imhere.widget.LedTextView
+            android:id="@+id/expand_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expand_item_time"
+            android:shadowColor="@color/textColorShadow"
+            android:shadowDx="1"
+            android:shadowDy="0"
+            android:shadowRadius="10"
+            android:text="2016-12-16" />
+    </RelativeLayout>
+</RelativeLayout>

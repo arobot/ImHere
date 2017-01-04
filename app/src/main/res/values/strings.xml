@@ -5,4 +5,6 @@
     <string name="save_location">我来打卡</string>
     <string name="record_history">辉煌足迹</string>
     <string name="about">关于我在</string>
+    <string name="about_label">关于我在</string>
+    <string name="record_list_label">我的足迹</string>
 </resources>

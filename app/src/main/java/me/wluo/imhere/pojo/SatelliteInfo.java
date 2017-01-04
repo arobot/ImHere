@@ -2,58 +2,91 @@ package me.wluo.imhere.pojo;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.Observable;
 
 import com.android.databinding.library.baseAdapters.BR;
+
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.Transient;
 
 
 /**
  * Created by niwei on 2016/12/16.
  */
-
+@Entity(nameInDb = "location")
 public class SatelliteInfo extends BaseObservable {
-    private int id;
-
-    public String satelliteCount;
+    @Id
+    private long id;
+    @Transient
+    private String satelliteCount;
     /**
      * 纬度
      */
-    public String latitude;
+    @Transient
+    private String latitude;
     /**
      * 经度
      */
-    public String longitude;
-    public String country;
-    public String province;
-    public String city;
+    @Transient
+    private String longitude;
+    @Transient
+    private String country;
+
+    private String province;
+    private String city;
     /**
      * 城区信息
      */
-    public String district;
-    public String street;
-    public String streetNum;
-    public String cityCode;
-    public String adCode;
-    public String poiName;
+    private String district;
+    private String street;
+    private String streetNum;
+    private String cityCode;
+    @Transient
+    private String adCode;
+    @Property(nameInDb = "poi")
+    private String poiName;
     /**
      * 精度
      */
-    public String accuracy;
+    private String accuracy;
     /**
      * 海拔
      */
-    public String altitude;
+    private String altitude;
+    @Transient
+    private String speed;
+    @Property(nameInDb = "time")
+    private String addTime;
 
-    public String speed;
+    @Generated(hash = 448019116)
+    public SatelliteInfo(long id, String province, String city, String district,
+            String street, String streetNum, String cityCode, String poiName, String accuracy,
+            String altitude, String addTime) {
+        this.id = id;
+        this.province = province;
+        this.city = city;
+        this.district = district;
+        this.street = street;
+        this.streetNum = streetNum;
+        this.cityCode = cityCode;
+        this.poiName = poiName;
+        this.accuracy = accuracy;
+        this.altitude = altitude;
+        this.addTime = addTime;
+    }
 
-    public String addTime;
+    @Generated(hash = 1460895732)
+    public SatelliteInfo() {
+    }
 
     @Bindable
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
         notifyPropertyChanged(BR.id);
     }

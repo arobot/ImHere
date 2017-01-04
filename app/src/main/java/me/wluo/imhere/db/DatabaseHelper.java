@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.wluo.imhere.pojo.RecordList;
 import me.wluo.imhere.pojo.SatelliteInfo;
 
 /**
@@ -101,10 +102,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return {@link SatelliteInfo} 列表信息
      */
     public List<SatelliteInfo> readAllRecords() {
+        List<RecordList> records = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from " + TABLE_LOCATION_RECORD, new String[]{});
+        Cursor cursor = db.rawQuery("select strftime('%Y年%m月',time) as groupId, * from " + TABLE_LOCATION_RECORD, new String[]{});
         List<SatelliteInfo> satelliteInfos = new ArrayList<>();
         while (cursor.moveToNext()) {
+//            String groupId  = cursor.getString(cursor.getColumnIndex("groupId"));
+//            RecordList recordList = new RecordList();
+//            recordList.setTime(groupId);
             SatelliteInfo satelliteInfo = new SatelliteInfo();
             satelliteInfo.setId(cursor.getInt(cursor.getColumnIndex("id")));
             satelliteInfo.setProvince(cursor.getString(cursor.getColumnIndex("province")));

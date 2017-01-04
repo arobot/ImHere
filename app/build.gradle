@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     signingConfigs {
         release {
@@ -32,6 +32,12 @@ android {
     }
     productFlavors {
     }
+
+    greendao {
+        schemaVersion 1
+        daoPackage 'me.wluo.imhere.db'
+        targetGenDir 'src/main/java'
+    }
 }
 
 dependencies {
@@ -40,5 +46,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'org.greenrobot:greendao-generator:3.2.0'
     testCompile 'junit:junit:4.12'
 }
