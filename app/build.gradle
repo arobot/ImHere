@@ -5,7 +5,7 @@ android {
         release {
             keyAlias 'imhere'
             keyPassword 'imhere1216'
-            storeFile file('D:/Projects/Android/keystore/wluo.keystore')
+            storeFile file('/Users/luowei/Projects/Android/wluo.keystore')
             storePassword 'luowei920427!!!'
         }
     }
